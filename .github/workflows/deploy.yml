@@ -15,15 +15,15 @@ jobs:
     ] 
     defaults:
       run:
-        working-directory: 'БР1.2/Едигарева Дарья/labs/lab4'
+        working-directory: 'БР1.2/Едигарева Дарья/labs/hw6'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Compose up
         run: |
-          sudo docker compose stop
-          sudo docker compose up --build -d
+          sudo docker compose -f docker-compose.micro.yml stop
+          sudo docker compose -f docker-compose.micro.yml up --build -d
 
       - name: Cleanup
         run: docker system prune -a -f
