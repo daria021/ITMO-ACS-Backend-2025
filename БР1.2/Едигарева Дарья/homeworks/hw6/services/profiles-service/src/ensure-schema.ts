@@ -1,28 +1,24 @@
 import { Client } from 'pg';
+import SETTINGS from './config/settings';
 
 async function main() {
-  const {
-    DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, DB_SCHEMA,
-  } = process.env;
-
-  if (!DB_SCHEMA) {
-    // специально валимся, чтобы сразу видно было где забыли схему
+  if (!SETTINGS.DB_SCHEMA) {
     throw new Error('DB_SCHEMA is not set');
   }
 
   const client = new Client({
-    host: DB_HOST,
-    port: Number(DB_PORT ?? 5432),
-    user: DB_USER,
-    password: DB_PASSWORD,
-    database: DB_NAME,
+    host: SETTINGS.DB_HOST,
+    port: Number(SETTINGS.DB_PORT ?? 5432),
+    user: SETTINGS.DB_USER,
+    password: SETTINGS.DB_PASSWORD,
+    database: SETTINGS.DB_NAME,
   });
 
   await client.connect();
-  await client.query(`CREATE SCHEMA IF NOT EXISTS "${DB_SCHEMA}";`);
+  await client.query(`CREATE SCHEMA IF NOT EXISTS "${SETTINGS.DB_SCHEMA}";`);
   await client.end();
 
-  console.log(`Schema "${DB_SCHEMA}" is ensured.`);
+  console.log(`Schema "${SETTINGS.DB_SCHEMA}" is ensured.`);
 }
 
 main().catch((e) => {
