@@ -4,6 +4,7 @@ import SETTINGS from './settings';
 
 const dataSource = new DataSource({
   type: 'postgres',
+  url: process.env.DATABASE_URL,
   host: SETTINGS.DB_HOST,
   port: SETTINGS.DB_PORT,
   username: SETTINGS.DB_USER,
@@ -11,6 +12,8 @@ const dataSource = new DataSource({
   database: SETTINGS.DB_NAME,
   logging: true,
   synchronize: false,
+  migrationsRun: true,
+  migrationsTableName: 'migrations_profile',
   schema: SETTINGS.DB_SCHEMA,
   entities: [SETTINGS.DB_ENTITIES],
   migrations: [SETTINGS.DB_MIGRATIONS],

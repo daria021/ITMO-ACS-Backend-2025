@@ -4,14 +4,16 @@ import SETTINGS from './settings';
 
 const dataSource = new DataSource({
   type: 'postgres',
+  url: process.env.DATABASE_URL,
   host: SETTINGS.DB_HOST,
   port: SETTINGS.DB_PORT,
   username: SETTINGS.DB_USER,
   password: SETTINGS.DB_PASSWORD,
   database: SETTINGS.DB_NAME,
   logging: true,
-  // Use migrations only; no auto schema sync in any env
   synchronize: false,
+  migrationsRun: true,
+  migrationsTableName: 'migrations_vacancies',
   schema: SETTINGS.DB_SCHEMA,
   entities: [SETTINGS.DB_ENTITIES],
   migrations: [SETTINGS.DB_MIGRATIONS],
