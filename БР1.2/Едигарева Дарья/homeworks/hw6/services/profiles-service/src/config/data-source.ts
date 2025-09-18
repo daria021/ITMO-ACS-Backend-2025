@@ -13,7 +13,6 @@ const dataSource = new DataSource({
   logging: true,
   synchronize: false,
   migrationsRun: true,
-  migrationsTableName: 'migrations_profile',
   schema: SETTINGS.DB_SCHEMA,
   entities: [SETTINGS.DB_ENTITIES],
   migrations: [SETTINGS.DB_MIGRATIONS],
